@@ -1,5 +1,5 @@
 {
-"partes": ["mano", "dedo", "cuello"],
-"acciones": ["doblar", "girar", "cerrar"],
+"partes": ["mano", "dedo", "cuello", "pie", "cadera"],
+"acciones": ["doblar", "girar", "cerrar", "estirar"],
 "lado": ["izquierdo", "derecho"]
 }

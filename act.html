@@ -7,16 +7,17 @@
 </head>
 <body>
     <h1> JSON corporal</h1>
-    <p id="hola"></p>
-    <p>dice que:</p>
-    <p id="hola"></p>
+    <p>El archivo JSON dice que:</p>
+    <p id="instruccion"></p>
 
     <!-- <script src="hola.js"></script> -->
+     
      <script>
         fetch('act.json')
         .then(response => response.json())
         .then (json => {
-            console.log(json.acciones[1]);
+            document.getElementById("instruccion").innerHTML=json.acciones[1] + " " +  json.partes[0] + " " + "al lado " + " " + json.lado[1];
+            console.log(json);
         })
      </script>
 </body>
