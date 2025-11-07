@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase connect</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+<body>
+
+    <p id="referentes"></p>
+
+    <script>
+    const supabasePublicClient = supabase.createClient(
+        "https://ucnfnommirngccqvpmhg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjbmZub21taXJuZ2NjcXZwbWhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MTM2ODgsImV4cCI6MjA3NzQ4OTY4OH0.DdlUfMla6p2spWJdfz0aP4o7StfYZ8ElXywHp_1G6AU", {db:{schema:"public"}
+    });
+
+
+(async()=>{
+    const response = await supabasePublicClient.from ("eje"). select("referentes") 
+    console.log(response)
+    document.getElementById("referentes").innerHTML = JSON.stringify(response,null,2)
+})()
+
+    </script>
+</body>
+</html>
