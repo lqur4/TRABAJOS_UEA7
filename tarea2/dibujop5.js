@@ -12,7 +12,7 @@ function draw() {
   noStroke();
   rect(0, 300, 450, 100);
 
-  // --- pared de la casas ---
+  // --- pared de la casa ---
   fill("#ffe3b3"); 
   stroke("#d59f6c");
   strokeWeight(3);
