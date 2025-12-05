@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de datos</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <input type="text" id="datos">
+    <button type="button" onclick="ponerTexto(document.getElementById('datos').value)">Enviar</button>
+
+    <div id="resultado"></div> <!-- Aquí se mostrarán los valores -->
+
+    <script>
+        const supabasePublicClient = supabase.createClient(
+            "https://jqxvuvkofrkwqubtlisk.supabase.co",
+            "sb_publishable_A0ImHaM5Brvsgc3z4AEy2A_4vaSfzHv",
+            { db: { schema: "public" } }
+        );
+
+        // 4 y 5 → Insertar texto, obtener datos y mostrarlos
+        async function ponerTexto(valor) {
+            await supabasePublicClient
+            .from('basededatos')              // ← Cambia esto
+            .insert([{ nombreDeTuColumna: valor }]);  // ← Cambia esto
+
+            obtenerDatos(); // para refrescar en pantalla después de insertar
+        }
+
+        // 4 y 6 → Mostrar datos en pantalla y consola
+        async function obtenerDatos(){
+            const { data } = await supabasePublicClient
+            .from('basedesatos')  // ← usa el mismo nombre
+            .select('*');
+
+            console.log(data); // ← PUNTO 5 cumplido
+
+            // Mostrar en el div
+            document.getElementById("resultado").innerHTML =
+                data.map(item => `<p>${JSON.stringify(item)}</p>`).join("");
+
+        }
+
+        obtenerDatos(); // carga los valores al abrir la página
+    </script>
+
+</body>
+</html>
