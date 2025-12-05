@@ -3,48 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base de datos</title>
+    <title>Base de datos Supabase</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <input type="text" id="datos">
-    <button type="button" onclick="ponerTexto(document.getElementById('datos').value)">Enviar</button>
-
-    <div id="resultado"></div> <!-- Aquí se mostrarán los valores -->
-
-    <script>
-        const supabasePublicClient = supabase.createClient(
-            "https://jqxvuvkofrkwqubtlisk.supabase.co",
-            "sb_publishable_A0ImHaM5Brvsgc3z4AEy2A_4vaSfzHv",
-            { db: { schema: "public" } }
+    <p id="cantidad"></p>
+    <p id="frutasyverduras"></p>
+    
+<script>
+    const supabasePublicClient = supabase.createClient(
+    "https://jqxvuvkofrkwqubtlisk.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpxeHZ1dmtvZnJrd3F1YnRsaXNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4ODQ1MTYsImV4cCI6MjA4MDQ2MDUxNn0.QvgdulJHYDPEoB0Tn1nvMvQzxDoOd6IHeIqWU-RfUFE",{
+                
+        db:{
+        schema:"public"}
+    }
         );
 
-        // 4 y 5 → Insertar texto, obtener datos y mostrarlos
-        async function ponerTexto(valor) {
-            await supabasePublicClient
-            .from('basededatos')              // ← Cambia esto
-            .insert([{ nombreDeTuColumna: valor }]);  // ← Cambia esto
+    (async()=>{
+    const response = await supabasePublicClient.from('basededatos').select("*")
+    console.log(response)
 
-            obtenerDatos(); // para refrescar en pantalla después de insertar
-        }
+    let cantidad = "";
+    let frutasyverduras = "";
 
-        // 4 y 6 → Mostrar datos en pantalla y consola
-        async function obtenerDatos(){
-            const { data } = await supabasePublicClient
-            .from('basedesatos')  // ← usa el mismo nombre
-            .select('*');
+    response.data.forEach(item =>{
+        cantidad += item.cantidad + "<br>";
+        frutasyverduras += item.frutasyverduras + "<br>";
+            });
 
-            console.log(data); // ← PUNTO 5 cumplido
+            document.getElementById("cantidad").innerHTML = cantidad;
+            document.getElementById("frutasyverduras").innerHTML = frutasyverduras;
 
-            // Mostrar en el div
-            document.getElementById("resultado").innerHTML =
-                data.map(item => `<p>${JSON.stringify(item)}</p>`).join("");
-
-        }
-
-        obtenerDatos(); // carga los valores al abrir la página
-    </script>
-
+        })()
+</script>
 </body>
 </html>
